@@ -261,27 +261,27 @@ public:
         {
             if (event.type == Event::KeyPressed)
             {
-                if (event.key.code== Keyboard::W || event.key.code == Keyboard::Up && direction != Direction::DOWN && inputlock == false)
+                if ((event.key.code== Keyboard::W || event.key.code == Keyboard::Up) && direction != Direction::DOWN && inputlock == false)
                 {
                     head.sprite.setRotation(270);
                     direction = Direction::UP;
 
                     inputlock = true;
                 }
-                if (event.key.code== Keyboard::A || event.key.code == Keyboard::Left && direction != Direction::RIGHT && inputlock == false)
+                if ((event.key.code== Keyboard::A || event.key.code == Keyboard::Left) && direction != Direction::RIGHT && inputlock == false)
                 {
                     head.sprite.setRotation(180);
                     direction = Direction::LEFT;
                     inputlock = true;
                 }
-                if (event.key.code== Keyboard::S || event.key.code == Keyboard::Down && direction != Direction::UP && inputlock == false)
+                if ((event.key.code== Keyboard::S || event.key.code == Keyboard::Down) && direction != Direction::UP && inputlock == false)
                 {
                     head.sprite.setRotation(90);
                     direction = Direction::DOWN;
 
                     inputlock = true;
                 }
-                if (event.key.code== Keyboard::D || event.key.code == Keyboard::Right && direction != Direction::LEFT && inputlock == false)
+                if ((event.key.code== Keyboard::D || event.key.code == Keyboard::Right) && direction != Direction::LEFT && inputlock == false)
                 {
                     head.sprite.setRotation(0);
                     direction = Direction::RIGHT;
@@ -392,13 +392,13 @@ public:
         }
     }
 
-    void eatApple(float movetimetochange)
+    void eatApple(float& movetimetochange)
     {
         for (int i=0; i<apple->appleMaxStack; i++)
         {
             if (head.sprite.getPosition().x == apple->sprite[i].getPosition().x && head.sprite.getPosition().y == apple->sprite[i].getPosition().y)
             {
-                if (increaseSnakeSpeed == true) movetimetochange -= 0.002;
+                if (increaseSnakeSpeed == true && movetimetochange > 0.0004) movetimetochange -= 0.0004;
                 score += apple->scoreGiving;
                 apple->updateApple(i);
                 grow();
